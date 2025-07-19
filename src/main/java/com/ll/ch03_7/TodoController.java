@@ -66,4 +66,21 @@ public class TodoController {
 
         return removed;
     }
+
+    @GetMapping("/modify/{id}")
+    public boolean modify(@PathVariable long id, String body){
+        Todo foundTodo = todos
+                .stream()
+                .filter(
+                        t -> t.getId() == id
+                )
+                .findFirst()
+                .orElse(null);
+
+        if(foundTodo == null) return false;
+
+        foundTodo.setBody(body);
+
+        return true;
+    }
 }
